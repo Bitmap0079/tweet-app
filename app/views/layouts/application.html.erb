@@ -9,6 +9,22 @@
   </head>
 
   <body>
+    <header>
+      <div class="header-logo">
+        <%= link_to("Tweet_for_Fluid_lab", "/") %>
+      </div>
+      <ul class="header-menus">
+        <li>
+        <%= link_to("Tweet_for_Fluid_labとは", "/about") %>
+        </li>
+        <li>
+        <%= link_to("投稿一覧", "/posts/index") %>
+        </li>
+        <li>
+          <%= link_to("新規投稿", "/posts/new") %>
+        </li>
+      </ul>
+    </header>
     <%= yield %>
   </body>
 </html>
