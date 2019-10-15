@@ -9,13 +9,40 @@ class PostsController < ApplicationController
   end
   
   def new
-    
+    @post = Post.new
   end
   
   def create
     @post = Post.new(content: params[:content])
-    @post.save
-    redirect_to "/posts/index"
+    if @post.save
+      redirect_to "/posts/index"
+      flash[:notice] = "投稿が作成されました"
+    else
+      render "posts/new"
+    end
   end
   
+  
+  def edit
+    @post = Post.find_by(id: params[:id])
+  end
+  
+  def update
+    @post = Post.find_by(id: params[:id])
+    @post.content = params[:content]
+    if @post.save
+      redirect_to "/posts/index"
+      flash[:notice] = "投稿が編集されました"
+    else
+      render "posts/edit" #renderはURLではなく
+                          #render("フォルダ名/ファイル名")にして表示したいビューを指定する
+    end
+  end
+  
+  def destroy
+    @post = Post.find_by(id: params[:id])
+    @post.destroy
+    redirect_to "/posts/index"
+    flash[:notice] = "投稿が削除されました"
+  end
 end

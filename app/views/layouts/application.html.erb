@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Tweet_for_Fluid_lab_β</title>
+    <title>TweetApp</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
+    <% if flash[:notice]%>
+      <div class="flash">
+        <%= flash[:notice]%>
+      </div>
+    <% end %>
   <body>
     <header>
       <div class="header-logo">
@@ -16,6 +20,12 @@
       <ul class="header-menus">
         <li>
         <%= link_to("Tweet_for_Fluid_labとは", "/about") %>
+        </li>
+        <li>
+        <%= link_to("ユーザー一覧", "/users/index") %>
+        </li>
+        <li>
+        <%= link_to("新規登録", "/signup") %>
         </li>
         <li>
         <%= link_to("投稿一覧", "/posts/index") %>
