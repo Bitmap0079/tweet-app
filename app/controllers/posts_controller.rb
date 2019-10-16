@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  
+  before_action :autehticate_user, {only:[:index, :show, :edit, :update]}
+
   def index
     @posts = Post.all.order(created_at: :desc)
   end
@@ -45,4 +46,6 @@ class PostsController < ApplicationController
     redirect_to "/posts/index"
     flash[:notice] = "投稿が削除されました"
   end
+  
+
 end

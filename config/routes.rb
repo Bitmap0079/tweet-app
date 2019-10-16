@@ -15,10 +15,14 @@ Rails.application.routes.draw do
   post 'users/create' => "users#create"
   post 'users/:id/update' => "users#update"
   post 'users/:id/destroy' => "users#destroy"
+  post 'login' => "users#login"
+  post 'logout' => "users#logout"
+
   get 'users/index' => "users#index"
   get 'signup' => "users#new"
   get 'users/:id' => "users#show"
   get 'users/:id/edit' => "users#edit"
+  get 'login' => "users#login_form"
   
   #topとabout
   get '/' => "home#top"
