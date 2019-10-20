@@ -17,7 +17,11 @@
     <body>
     <header>
       <div class="header-logo">
-        <%= link_to("Tweet_for_Fluid_lab", "/") %>
+      <% if @current_user %>
+        <%= link_to "Tweet_for_Fluid_lab", "/posts/index"%>
+      <% else %>
+        <%= link_to "Tweet_for_Fluid_lab", "/"%>
+      <% end %>
       </div>
       <ul class="header-menus">
         <% if @current_user %>
