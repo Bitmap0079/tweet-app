@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user, {only:[:index, :show, :edit, :update]}
   before_action :forbid_login_user, {only:[:new, :create, :login_form, :login]}
-  before_action :ensure_correct_user, {only:[:edit, :update]}
+  before_action :ensure_correct_user, {only:[:edit, :update, :destroy]}
   def index
     @users = User.all.order(created_at: :desc)
   end
@@ -22,8 +22,8 @@ class UsersController < ApplicationController
       )
     if @user.save
       session[:user_id] = @user.id
-      flash[:notice] = "ユーザーを作成しました"
       redirect_to "/users/#{@user.id}"
+      flash[:notice] = "ユーザーを作成しました"
     else
       render "users/new"
     end
@@ -49,8 +49,6 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find_by(id: params[:id])
     @user.destroy
-    redirect_to "/users/index"
-    flash[:notice] = "ユーザー情報が削除されました"
   end
   
   def login_form
@@ -61,8 +59,8 @@ class UsersController < ApplicationController
       email: params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      flash[:notice] = "ログインしました"
       redirect_to "/posts/index"
+      flash[:notice] = "ログインしました"
     else
       @error_message = "メールアドレスまたはパスワードが間違っています"
       @email = params[:email]
@@ -73,14 +71,14 @@ class UsersController < ApplicationController
   
   def logout
     session[:user_id] = nil
-    flash[:notice] = "ログアウトしました"
     redirect_to "/login"
+    flash[:notice] = "ログアウトしました"
   end
   
   def ensure_correct_user
     if @current_user.id != params[:id].to_i
-      flash[:notice] = "権限がありません"
       redirect_to "/posts/index"
+      flash[:notice] = "権限がありません"
     end
   end
 end

@@ -21,8 +21,8 @@ class PostsController < ApplicationController
       user_id: @current_user.id
       )
     if @post.save
-      flash[:notice] = "投稿が作成されました"
       redirect_to "/posts/index"
+      flash[:notice] = "投稿が作成されました"
     else
       render "posts/new"
     end
@@ -55,8 +55,8 @@ class PostsController < ApplicationController
   def ensure_correct_user
       @post = Post.find_by(id: params[:id])
     if @post.user_id != @current_user.id
-      flash[:notice] = "権限がありません"
       redirect_to "/posts/index"
+      flash[:notice] = "権限がありません"
     end
   end
 end
