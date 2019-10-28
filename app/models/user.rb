@@ -4,7 +4,7 @@ class User < ApplicationRecord
   # validates :password, {presence: true}
   has_secure_password
   
-  has_many :posts, :dependent => :destroy
+  # has_many :posts, :dependent => :destroy
   
   def posts
     return Post.where(user_id: self.id)
